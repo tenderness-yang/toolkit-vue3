@@ -32,7 +32,7 @@
             @click="setTheme(theme.value)">
           </button>
         </div>
-        <a href="https://github.com" target="_blank" class="github-btn">
+        <a href="https://github.com/tenderness-yang/toolkit-vue3" target="_blank" class="github-btn">
           <span class="github-icon">📦</span>
         </a>
       </div>
@@ -176,8 +176,7 @@
               <h2>联系我们</h2>
               <p>如有问题或建议，欢迎通过以下方式联系我们：</p>
               <div class="contact-info">
-                <p>📧 邮箱: contact@devtoolkit.com</p>
-                <p>🐙 GitHub: github.com/devtoolkit</p>
+                <p>🐙 GitHub: https://github.com/tenderness-yang</p>
               </div>
             </div>
           </div>
