@@ -1,0 +1,33 @@
+{
+  "name": "DevToolkit - 开发者工具集",
+  "short_name": "DevToolkit",
+  "description": "一站式开发者工具平台，包含文本处理、代码格式化、数据转换等实用工具",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#6366f1",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer tools", "utilities", "productivity"],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}
