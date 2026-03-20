@@ -594,6 +594,7 @@ onMounted(() => {
 
 .tool-header {
   text-align: center;
+  margin-top: 50px;
   margin-bottom: 40px;
   padding: 30px;
   background: linear-gradient(135deg, var(--ag-accent-primary) 0%, var(--ag-accent-secondary) 100%);
