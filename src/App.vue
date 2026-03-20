@@ -22,7 +22,8 @@
       <ul class="nav-links">
         <li><a href="#" :class="{ active: currentPage === 'home' }" @click="currentPage = 'home'">首页</a></li>
         <li><a href="#" :class="{ active: currentPage === 'toolkit' }" @click="currentPage = 'toolkit'">工具集</a></li>
-        <li><a href="#" :class="{ active: currentPage === 'attribute' }" @click="currentPage = 'attribute'">属性生成</a></li>
+        <li><a href="#" :class="{ active: currentPage === 'attribute' }" @click="currentPage = 'attribute'">属性生成</a>
+        </li>
         <li><a href="#" :class="{ active: currentPage === 'about' }" @click="currentPage = 'about'">关于</a></li>
       </ul>
       <div class="nav-actions">
@@ -64,7 +65,7 @@
         <section class="preview-section">
           <div class="section-header">
             <h2 class="section-title">🔥 热门工具</h2>
-            <el-button type="text" @click="currentPage = 'toolkit'">查看全部 →</el-button>
+            <el-button text @click="currentPage = 'toolkit'">查看全部 →</el-button>
           </div>
           <div class="preview-tools">
             <div v-for="tool in featuredTools" :key="tool.name" class="preview-tool" @click="openTool(tool)">
@@ -204,7 +205,6 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import ToolModal from './components/ToolModal.vue'
 import ToolkitHome from './components/ToolkitHome.vue'
-import ToolModalFull from './components/ToolModalFull.vue'
 import AttributeGenerator from './components/AttributeGenerator.vue'
 
 // 主题配置
@@ -223,9 +223,6 @@ const setTheme = (theme) => {
   localStorage.setItem('theme', theme)
 }
 
-// 分类
-const categories = ['全部工具', '文本处理', '开发工具', '数据转换', '编码解码', '图像处理', '网络工具']
-const activeCategory = ref('全部工具')
 
 // 搜索
 const searchQuery = ref('')
@@ -256,30 +253,9 @@ const totalTools = computed(() => tools.value.length)
 const featuredTools = computed(() => {
   return [...tools.value]
     .sort((a, b) => b.usage - a.usage)
-    .slice(0, 3)
+    .slice(0, 4)
 })
 
-// 过滤工具
-const filteredTools = computed(() => {
-  let result = tools.value
-
-  // 分类过滤
-  if (activeCategory.value !== '全部工具') {
-    result = result.filter(tool => tool.category === activeCategory.value)
-  }
-
-  // 搜索过滤
-  if (searchQuery.value.trim()) {
-    const query = searchQuery.value.toLowerCase()
-    result = result.filter(tool =>
-      tool.name.toLowerCase().includes(query) ||
-      tool.description.toLowerCase().includes(query) ||
-      tool.tags.some(tag => tag.toLowerCase().includes(query))
-    )
-  }
-
-  return result
-})
 
 // 当前页面
 const currentPage = ref('home')

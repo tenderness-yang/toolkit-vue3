@@ -12,8 +12,7 @@
           <span><i class="bi bi-file-earmark-excel"></i>cfg_att_score.xls 配置文件</span>
         </div>
       </template>
-      <el-upload drag :auto-upload="false" :on-change="handleFileChange" :show-file-list="true" accept=".xlsx,.xls"
-        multiple="false">
+      <el-upload drag :auto-upload="false" :on-change="handleFileChange" :show-file-list="true" accept=".xlsx,.xls">
         <el-icon class="el-icon--upload">
           <UploadFilled />
         </el-icon>
@@ -74,7 +73,8 @@
                   @change="onAttrIdChange(row)">
                   <el-option v-for="attr in attributeOptions" :key="attr.value" :label="attr.label" :value="attr.value">
                     <span style="flex: 1">{{ attr.label }}</span>
-                    <el-tag size="small" :type="attr.typeId === '3' ? 'success' : attr.typeId === '2' ? 'warning' : ''">
+                    <el-tag size="small"
+                      :type="attr.typeId === 3 ? 'success' : attr.typeId === 2 ? 'warning' : 'primary'">
                       {{ attr.typeLabel }}
                     </el-tag>
                   </el-option>
@@ -212,9 +212,9 @@ const attributeOptions = ref([])
 
 // 属性类型映射 (1=数值，2=万分比，3=百分比)
 const attrTypeMap = {
-  '1': { label: '数值', suffix: '', multiplier: 1 },
-  '2': { label: '万分比', suffix: '‱', multiplier: 10000 },
-  '3': { label: '百分比', suffix: '%', multiplier: 100 }
+  1: { label: '数值', suffix: '', multiplier: 1 },
+  2: { label: '万分比', suffix: '‱', multiplier: 10000 },
+  3: { label: '百分比', suffix: '%', multiplier: 100 }
 }
 
 // 属性行数据
@@ -239,7 +239,7 @@ const addAttributeRow = () => {
   attributeRows.value.push({
     id: rowCounter,
     attrId: '',
-    attrTypeId: '1', // 1=数值，2=万分比，3=百分比
+    attrTypeId: 1, // 1=数值，2=万分比，3=百分比
     value: 0,
     fixedInc: 0,
     stackInc: 0,
@@ -274,9 +274,9 @@ const getSelectedTypeLabel = (row) => {
 
 // 获取选中属性的类型标签样式
 const getSelectedTypeTagType = (row) => {
-  if (row.attrTypeId === '3') return 'success'
-  if (row.attrTypeId === '2') return 'warning'
-  return 'info'
+  if (row.attrTypeId === 3) return 'success'
+  if (row.attrTypeId === 2) return 'warning'
+  return 'primary'
 }
 
 // 删除属性行
@@ -377,8 +377,6 @@ const handleFileChange = (file) => {
 
       // 解析属性数据
       parseAttributeData(jsonData)
-
-      ElMessage.success(`成功加载 ${jsonData.length} 行属性数据`)
     } catch (error) {
       ElMessage.error(`文件解析失败：${error.message}`)
     }
@@ -406,7 +404,7 @@ const parseAttributeData = (data) => {
 
     const attrId = row[0] ? String(row[0]).trim() : ''
     const attrName = row[1] ? String(row[1]).trim() : ''
-    const attrTypeId = row[3] ? String(row[3]).trim() : '1'
+    const attrTypeId = row[3] ? Number(row[3]) : 1 // 转换为数字
     const attrDesc = row[4] ? String(row[4]).trim() : ''
 
     // 跳过以 // 或 /// 开头的注释行
@@ -418,7 +416,7 @@ const parseAttributeData = (data) => {
     if (!attrId) return
 
     // 验证数值类型
-    const validType = ['1', '2', '3'].includes(attrTypeId) ? attrTypeId : '1'
+    const validType = [1, 2, 3].includes(attrTypeId) ? attrTypeId : 1
 
     newOptions.push({
       value: attrId,
