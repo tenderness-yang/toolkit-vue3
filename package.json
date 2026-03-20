@@ -4,7 +4,7 @@
   "description": "开发者工具集 - Vue3 版本",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
     "preview": "vite preview"
   },
